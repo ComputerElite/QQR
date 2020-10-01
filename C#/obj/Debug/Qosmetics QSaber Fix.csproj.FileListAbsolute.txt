@@ -1,0 +1,15 @@
+D:\Visual Studio\Qosmetics QSaber Fix\Qosmetics QSaber Fix\obj\Debug\Qosmetics QSaber Fix.csprojAssemblyReference.cache
+D:\Visual Studio\Qosmetics QSaber Fix\Qosmetics QSaber Fix\obj\Debug\MainWindow.g.cs
+D:\Visual Studio\Qosmetics QSaber Fix\Qosmetics QSaber Fix\obj\Debug\App.g.cs
+D:\Visual Studio\Qosmetics QSaber Fix\Qosmetics QSaber Fix\obj\Debug\Qosmetics QSaber Fix_MarkupCompile.cache
+D:\Visual Studio\Qosmetics QSaber Fix\Qosmetics QSaber Fix\obj\Debug\Qosmetics QSaber Fix_MarkupCompile.lref
+D:\Visual Studio\Qosmetics QSaber Fix\Qosmetics QSaber Fix\bin\Debug\Qosmetics QSaber Fix.exe.config
+D:\Visual Studio\Qosmetics QSaber Fix\Qosmetics QSaber Fix\bin\Debug\Qosmetics QSaber Fix.exe
+D:\Visual Studio\Qosmetics QSaber Fix\Qosmetics QSaber Fix\bin\Debug\Qosmetics QSaber Fix.pdb
+D:\Visual Studio\Qosmetics QSaber Fix\Qosmetics QSaber Fix\obj\Debug\MainWindow.baml
+D:\Visual Studio\Qosmetics QSaber Fix\Qosmetics QSaber Fix\obj\Debug\Qosmetics QSaber Fix.g.resources
+D:\Visual Studio\Qosmetics QSaber Fix\Qosmetics QSaber Fix\obj\Debug\Qosmetics_QSaber_Fix.Properties.Resources.resources
+D:\Visual Studio\Qosmetics QSaber Fix\Qosmetics QSaber Fix\obj\Debug\Qosmetics QSaber Fix.csproj.GenerateResource.cache
+D:\Visual Studio\Qosmetics QSaber Fix\Qosmetics QSaber Fix\obj\Debug\Qosmetics QSaber Fix.csproj.CoreCompileInputs.cache
+D:\Visual Studio\Qosmetics QSaber Fix\Qosmetics QSaber Fix\obj\Debug\Qosmetics QSaber Fix.exe
+D:\Visual Studio\Qosmetics QSaber Fix\Qosmetics QSaber Fix\obj\Debug\Qosmetics QSaber Fix.pdb

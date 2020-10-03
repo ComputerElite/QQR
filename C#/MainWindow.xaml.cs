@@ -26,8 +26,8 @@ namespace Qosmetics_QSaber_Fix
     public partial class MainWindow : Window
     {
         int MajorV = 1;
-        int MinorV = 0;
-        int PatchV = 1;
+        int MinorV = 1;
+        int PatchV = 0;
         Boolean Preview = false;
 
         Boolean draggable = true;

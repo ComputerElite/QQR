@@ -26,7 +26,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button Click="Choose" FontFamily="lucida console" Opacity="0.9" MouseEnter="noDrag" MouseLeave="doDrag" Content="Choose QSaber" HorizontalAlignment="Left" Margin="11,200.6,0,0" VerticalAlignment="Top" Width="280" Background="#FF005654" Foreground="#FFF3F3F3" BorderBrush="#FFB94747" Height="24"/>
+        <Button Click="Choose" FontFamily="lucida console" Opacity="0.9" MouseEnter="noDrag" MouseLeave="doDrag" Content="Run" HorizontalAlignment="Left" Margin="11,200.6,0,0" VerticalAlignment="Top" Width="280" Background="#FF005654" Foreground="#FFF3F3F3" BorderBrush="#FFB94747" Height="24"/>
         <TextBox MouseEnter="noDrag" MouseLeave="doDrag" FontFamily="lucida console" Opacity="0.8" IsReadOnly="True" x:Name="txtbox" HorizontalAlignment="Left" Height="133.157" Margin="11,33.443,0,0" TextWrapping="Wrap" Text="Output:" VerticalAlignment="Top" Width="279" Background="#FF494949" Foreground="#FFA6A6A6" BorderBrush="#FFD30000"/>
         <Button Click="Start_Update" FontFamily="lucida console" MouseEnter="noDrag" MouseLeave="doDrag" x:Name="UpdateB" Content="Update" HorizontalAlignment="Left" Margin="10,171.6,0,0" VerticalAlignment="Top" Width="280" Background="#FFFF3636" Foreground="#FFE7E7E7" FontWeight="Bold" Height="24"/>
     </Grid>

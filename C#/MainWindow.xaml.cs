@@ -31,7 +31,6 @@ namespace Qosmetics_QSaber_Fix
         Boolean Preview = false;
 
         Boolean draggable = true;
-        String path = "";
         String exe = System.Reflection.Assembly.GetEntryAssembly().Location;
 
         public MainWindow()
@@ -48,6 +47,7 @@ namespace Qosmetics_QSaber_Fix
             }
             UpdateB.Visibility = Visibility.Hidden;
             Update();
+            txtbox.AppendText("\n\nPlease Connect your Quest to your PC and hit run.");
         }
 
         private void Drag(object sender, RoutedEventArgs e)
@@ -93,246 +93,105 @@ namespace Qosmetics_QSaber_Fix
 
         private void Choose(object sender, RoutedEventArgs e)
         {
-            CommonOpenFileDialog fd = new CommonOpenFileDialog();
-            fd.Filters.Add(new CommonFileDialogFilter("Zips", "*.zip"));
-            if (fd.ShowDialog() == CommonFileDialogResult.Ok)
-            {
-                path = fd.FileName;
-                replace();
-            }
+            
+                delete();
+            
         }
 
 
-        private void replace()
+        private void delete()
         {
-            int end = 0;
-            String f = "";
-            Boolean fail = true;
-            Boolean old = true;
 
-            end = path.LastIndexOf("\\");
-            f = path.Substring(end + 1, path.Length - end - 4);
-            if(Directory.Exists(exe + "\\tmp\\" + f))
+            //delete old qsabers
+
+            String User = System.Environment.GetEnvironmentVariable("USERPROFILE");
+            ProcessStartInfo s = new ProcessStartInfo();
+            s.CreateNoWindow = false;
+            s.UseShellExecute = false;
+            s.FileName = "adb.exe";
+            s.WindowStyle = ProcessWindowStyle.Minimized;
+            s.Arguments = "shell rm -f /sdcard/Android/data/com.beatgames.beatsaber/files/sabers/testSaber.qsaber";
+            try
             {
-                Directory.Delete(exe + "\\tmp\\" + f);
-            }
-            ZipFile.ExtractToDirectory(path, exe + "\\tmp\\" + f);
-
-            string[] directories = Directory.GetFiles(exe + "\\tmp\\" + f);
-
-
-
-            for (int i = 0; i < directories.Length; i++)
-            {
-
-                if(!directories[i].EndsWith(".qsaber"))
+                // Start the process with the info we specified.
+                // Call WaitForExit and then the using statement will close.
+                using (Process exeProcess = Process.Start(s))
                 {
-                    continue;
-                }
-                if(directories[i].EndsWith("bmbfmod.json"))
-                {
-                    StreamReader reader = new StreamReader(directories[i]);
-                    String line;
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        if(line.Contains("1.11.1"))
-                        {
-                            old = false;
-                        }
-                    }
-                }
-
-                //delete old qsaber
-                if (!old)
-                {
-                    String User = System.Environment.GetEnvironmentVariable("USERPROFILE");
-                    ProcessStartInfo s = new ProcessStartInfo();
-                    s.CreateNoWindow = false;
-                    s.UseShellExecute = false;
-                    s.FileName = "adb.exe";
-                    s.WindowStyle = ProcessWindowStyle.Minimized;
-                    s.Arguments = "shell rm -f /sdcard/Android/data/com.beatgames.beatsaber/files/sabers/testSaber.qsaber";
-                    try
-                    {
-                        // Start the process with the info we specified.
-                        // Call WaitForExit and then the using statement will close.
-                        using (Process exeProcess = Process.Start(s))
-                        {
-                            exeProcess.WaitForExit();
-                        }
-                    }
-                    catch
-                    {
-
-                        ProcessStartInfo se = new ProcessStartInfo();
-                        se.CreateNoWindow = false;
-                        se.UseShellExecute = false;
-                        se.FileName = User + "\\AppData\\Roaming\\SideQuest\\platform-tools\\adb.exe";
-                        se.WindowStyle = ProcessWindowStyle.Minimized;
-                        se.Arguments = "shell rm -f /sdcard/Android/data/com.beatgames.beatsaber/files/sabers/testSaber.qsaber";
-                        try
-                        {
-                            // Start the process with the info we specified.
-                            // Call WaitForExit and then the using statement will close.
-                            using (Process exeProcess = Process.Start(s))
-                            {
-                                exeProcess.WaitForExit();
-                            }
-                        }
-                        catch
-                        {
-                            // Log error.
-                            txtbox.AppendText("\n\n\nAn Error Occured. Check following");
-                            txtbox.AppendText("\n\n- Your Quest is connected and USB Debugging enabled.");
-                            txtbox.AppendText("\n\n- You have adb installed.");
-                        }
-
-                    }
-
-                    ProcessStartInfo sm = new ProcessStartInfo();
-                    sm.CreateNoWindow = false;
-                    sm.UseShellExecute = false;
-                    sm.FileName = "adb.exe";
-                    sm.WindowStyle = ProcessWindowStyle.Minimized;
-                    sm.Arguments = "push \"" + directories[i] + "\" /sdcard/Qosmetics/sabers/testSaber.qsaber";
-                    try
-                    {
-                        // Start the process with the info we specified.
-                        // Call WaitForExit and then the using statement will close.
-                        using (Process exeProcess = Process.Start(sm))
-                        {
-                            exeProcess.WaitForExit();
-                            txtbox.AppendText("\n\nReplaced Current QSaber with " + f + "qsaber.");
-                            fail = false;
-                        }
-                    }
-                    catch
-                    {
-
-                        ProcessStartInfo sme = new ProcessStartInfo();
-                        sme.CreateNoWindow = false;
-                        sme.UseShellExecute = false;
-                        sme.FileName = User + "\\AppData\\Roaming\\SideQuest\\platform-tools\\adb.exe";
-                        sme.WindowStyle = ProcessWindowStyle.Minimized;
-                        sme.Arguments = "push \"" + directories[i] + "\" /sdcard/Qosmetics/sabers/testSaber.qsaber";
-                        try
-                        {
-                            // Start the process with the info we specified.
-                            // Call WaitForExit and then the using statement will close.
-                            using (Process exeProcess = Process.Start(sme))
-                            {
-                                exeProcess.WaitForExit();
-                                txtbox.AppendText("\n\nReplaced Current QSaber with " + f + "qsaber.");
-                                fail = false;
-                            }
-                        }
-                        catch
-                        {
-                            // Log error.
-                            txtbox.AppendText("\n\n\nAn Error Occured. Check following");
-                            txtbox.AppendText("\n\n- Your Quest is connected and USB Debugging enabled.");
-                            txtbox.AppendText("\n\n- You have adb installed.");
-                        }
-
-                    }
-                } else
-                {
-                    String User = System.Environment.GetEnvironmentVariable("USERPROFILE");
-                    ProcessStartInfo s = new ProcessStartInfo();
-                    s.CreateNoWindow = false;
-                    s.UseShellExecute = false;
-                    s.FileName = "adb.exe";
-                    s.WindowStyle = ProcessWindowStyle.Minimized;
-                    s.Arguments = "shell rm -f /sdcard/Qosmetics/sabers/testSaber.qsaber";
-                    try
-                    {
-                        // Start the process with the info we specified.
-                        // Call WaitForExit and then the using statement will close.
-                        using (Process exeProcess = Process.Start(s))
-                        {
-                            exeProcess.WaitForExit();
-                        }
-                    }
-                    catch
-                    {
-
-                        ProcessStartInfo se = new ProcessStartInfo();
-                        se.CreateNoWindow = false;
-                        se.UseShellExecute = false;
-                        se.FileName = User + "\\AppData\\Roaming\\SideQuest\\platform-tools\\adb.exe";
-                        se.WindowStyle = ProcessWindowStyle.Minimized;
-                        se.Arguments = "shell rm -f /sdcard/Qosmetics/sabers/testSaber.qsaber";
-                        try
-                        {
-                            // Start the process with the info we specified.
-                            // Call WaitForExit and then the using statement will close.
-                            using (Process exeProcess = Process.Start(s))
-                            {
-                                exeProcess.WaitForExit();
-                            }
-                        }
-                        catch
-                        {
-                            // Log error.
-                            txtbox.AppendText("\n\n\nAn Error Occured. Check following");
-                            txtbox.AppendText("\n\n- Your Quest is connected and USB Debugging enabled.");
-                            txtbox.AppendText("\n\n- You have adb installed.");
-                        }
-
-                    }
-
-                    ProcessStartInfo sm = new ProcessStartInfo();
-                    sm.CreateNoWindow = false;
-                    sm.UseShellExecute = false;
-                    sm.FileName = "adb.exe";
-                    sm.WindowStyle = ProcessWindowStyle.Minimized;
-                    sm.Arguments = "push \"" + directories[i] + "\" /sdcard/Android/data/com.beatgames.beatsaber/files/sabers/testSaber.qsaber";
-                    try
-                    {
-                        // Start the process with the info we specified.
-                        // Call WaitForExit and then the using statement will close.
-                        using (Process exeProcess = Process.Start(sm))
-                        {
-                            exeProcess.WaitForExit();
-                            txtbox.AppendText("\n\nReplaced Current QSaber with " + f + "qsaber.");
-                            fail = false;
-                        }
-                    }
-                    catch
-                    {
-
-                        ProcessStartInfo sme = new ProcessStartInfo();
-                        sme.CreateNoWindow = false;
-                        sme.UseShellExecute = false;
-                        sme.FileName = User + "\\AppData\\Roaming\\SideQuest\\platform-tools\\adb.exe";
-                        sme.WindowStyle = ProcessWindowStyle.Minimized;
-                        sme.Arguments = "push \"" + directories[i] + "\" /sdcard/Android/data/com.beatgames.beatsaber/files/sabers/testSaber.qsaber";
-                        try
-                        {
-                            // Start the process with the info we specified.
-                            // Call WaitForExit and then the using statement will close.
-                            using (Process exeProcess = Process.Start(sme))
-                            {
-                                exeProcess.WaitForExit();
-                                txtbox.AppendText("\n\nReplaced Current QSaber with " + f + "qsaber.");
-                                fail = false;
-                            }
-                        }
-                        catch
-                        {
-                            // Log error.
-                            txtbox.AppendText("\n\n\nAn Error Occured. Check following");
-                            txtbox.AppendText("\n\n- Your Quest is connected and USB Debugging enabled.");
-                            txtbox.AppendText("\n\n- You have adb installed.");
-                        }
-
-                    }
+                    exeProcess.WaitForExit();
                 }
             }
-
-            if(fail)
+            catch
             {
-                txtbox.AppendText("\n\n" + path + " is no valid QSaber.");
+
+                ProcessStartInfo se = new ProcessStartInfo();
+                se.CreateNoWindow = false;
+                se.UseShellExecute = false;
+                se.FileName = User + "\\AppData\\Roaming\\SideQuest\\platform-tools\\adb.exe";
+                se.WindowStyle = ProcessWindowStyle.Minimized;
+                se.Arguments = "shell rm -f /sdcard/Android/data/com.beatgames.beatsaber/files/sabers/testSaber.qsaber";
+                try
+                {
+                    // Start the process with the info we specified.
+                    // Call WaitForExit and then the using statement will close.
+                    using (Process exeProcess = Process.Start(s))
+                    {
+                        exeProcess.WaitForExit();
+                    }
+                }
+                catch
+                {
+                    // Log error.
+                    txtbox.AppendText("\n\n\nAn Error Occured. Check following");
+                    txtbox.AppendText("\n\n- Your Quest is connected and USB Debugging enabled.");
+                    txtbox.AppendText("\n\n- You have adb installed.");
+                }
+
+            }
+
+            ProcessStartInfo sm = new ProcessStartInfo();
+            sm.CreateNoWindow = false;
+            sm.UseShellExecute = false;
+            sm.FileName = "adb.exe";
+            sm.WindowStyle = ProcessWindowStyle.Minimized;
+            sm.Arguments = "shell rm -f /sdcard/Qosmetics/sabers/testSaber.qsaber";
+            try
+            {
+                // Start the process with the info we specified.
+                // Call WaitForExit and then the using statement will close.
+                using (Process exeProcess = Process.Start(sm))
+                {
+                    exeProcess.WaitForExit();
+                    txtbox.AppendText("\n\nDeleted old QSaber(s). Now disable your QSaber in BMBF sync to Beat Saber and then enable it again.");
+                }
+            }
+            catch
+            {
+
+                ProcessStartInfo sme = new ProcessStartInfo();
+                sme.CreateNoWindow = false;
+                sme.UseShellExecute = false;
+                sme.FileName = User + "\\AppData\\Roaming\\SideQuest\\platform-tools\\adb.exe";
+                sme.WindowStyle = ProcessWindowStyle.Minimized;
+                sme.Arguments = "shell rm -f /sdcard/Qosmetics/sabers/testSaber.qsaber";
+                try
+                {
+                    // Start the process with the info we specified.
+                    // Call WaitForExit and then the using statement will close.
+                    using (Process exeProcess = Process.Start(sme))
+                    {
+                        exeProcess.WaitForExit();
+                        txtbox.AppendText("\n\nDeleted old QSaber(s). Now disable your QSaber in BMBF sync to Beat Saber and then enable it again.");
+                    }
+                }
+                catch
+                {
+                    // Log error.
+                    txtbox.AppendText("\n\n\nAn Error Occured. Check following");
+                    txtbox.AppendText("\n\n- Your Quest is connected and USB Debugging enabled.");
+                    txtbox.AppendText("\n\n- You have adb installed.");
+                }
+
+
             }
         }
 

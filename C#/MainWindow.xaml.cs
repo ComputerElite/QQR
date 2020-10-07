@@ -27,7 +27,7 @@ namespace Qosmetics_QSaber_Fix
     {
         int MajorV = 1;
         int MinorV = 1;
-        int PatchV = 0;
+        int PatchV = 1;
         Boolean Preview = false;
 
         Boolean draggable = true;

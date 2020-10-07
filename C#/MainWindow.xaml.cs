@@ -133,7 +133,7 @@ namespace Qosmetics_QSaber_Fix
                 {
                     // Start the process with the info we specified.
                     // Call WaitForExit and then the using statement will close.
-                    using (Process exeProcess = Process.Start(s))
+                    using (Process exeProcess = Process.Start(se))
                     {
                         exeProcess.WaitForExit();
                     }

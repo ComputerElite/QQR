@@ -27,7 +27,7 @@ namespace Qosmetics_QSaber_Fix
     {
         int MajorV = 1;
         int MinorV = 1;
-        int PatchV = 1;
+        int PatchV = 2;
         Boolean Preview = false;
 
         Boolean draggable = true;
@@ -141,7 +141,7 @@ namespace Qosmetics_QSaber_Fix
                 catch
                 {
                     // Log error.
-                    txtbox.AppendText("\n\n\nAn Error Occured. Check following");
+                    txtbox.AppendText("\n\n\nAn Error Occured (Code: ADB100). Check following");
                     txtbox.AppendText("\n\n- Your Quest is connected and USB Debugging enabled.");
                     txtbox.AppendText("\n\n- You have adb installed.");
                 }
@@ -186,7 +186,7 @@ namespace Qosmetics_QSaber_Fix
                 catch
                 {
                     // Log error.
-                    txtbox.AppendText("\n\n\nAn Error Occured. Check following");
+                    txtbox.AppendText("\n\n\nAn Error Occured (Code: ADB100). Check following");
                     txtbox.AppendText("\n\n- Your Quest is connected and USB Debugging enabled.");
                     txtbox.AppendText("\n\n- You have adb installed.");
                 }
@@ -203,7 +203,16 @@ namespace Qosmetics_QSaber_Fix
                 //Download Update.txt
                 using (WebClient client = new WebClient())
                 {
-                    client.DownloadFile("https://raw.githubusercontent.com/ComputerElite/Qosmetics-QSaber-Replacer/master/Update.txt", exe + "\\tmp\\Update.txt");
+                    try
+                    {
+                        client.DownloadFile("https://raw.githubusercontent.com/ComputerElite/Qosmetics-QSaber-Replacer/master/Update.txt", exe + "\\tmp\\Update.txt");
+
+                    }
+                    catch
+                    {
+                        txtbox.AppendText("\n\n\nAn error Occured (Code: UD100). Couldn't check for Updates. Check following");
+                        txtbox.AppendText("\n\n- Your PC has internet.");
+                    }
                 }
                 StreamReader VReader = new StreamReader(exe + "\\tmp\\Update.txt");
 
@@ -293,7 +302,7 @@ namespace Qosmetics_QSaber_Fix
             catch
             {
                 // Log error.
-                txtbox.AppendText("\nAn Error Occured");
+                txtbox.AppendText("\nAn Error Occured (Code: UD200)");
             }
         }
     }
